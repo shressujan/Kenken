@@ -1,5 +1,8 @@
 /**
  * This class is used to form constraints among the variables with same constraint
+ * This class contains a default constructor
+ * This class contains getter for constraintNum and constraintOperator and constraintVariables
+ * This class also contains a toString method
  * @author Sujan
  * last updated: March 21, 2016
  */

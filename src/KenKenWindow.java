@@ -20,18 +20,21 @@ public class KenKenWindow extends JFrame {
 	/**
 	 * These are all the variables used in this class
 	 */
-	private int win_wid = 600;
-	private int win_hei = 600;
+	private int win_wid = 700;
+	private int win_hei = 700;
 	private String starterFile = "KK_33.txt";
 
 	private JMenuBar mBar;
 	private JMenu file;
 	private JMenu solve;
+	private JMenu help;
 
 	private JMenuItem loadFile;
 	private JMenuItem saveFile;
 	private JMenuItem exit;
-	private JMenuItem with_constr_consist;
+	private JMenuItem run;
+	private JMenuItem backTrack;
+	private JMenuItem helpMenu;
 
 	private File input;
 	private KenKenPuzzle kenkenPuzzle;
@@ -39,7 +42,8 @@ public class KenKenWindow extends JFrame {
 
 	private String intro = "This is a kenken solver program \n"
 			+ "Asks the user to choose the kenken puzzle\n"
-			+ "Uses Artificial intelligence (Arc, Node-consistency) to solve the puzzle";
+			+ "Uses Artificial intelligence (Arc, Node-consistency, k consistency and backtracking) to solve the puzzle\n"
+			+ "User can also click on the cells of the puzzle to enter any number";
 
 	/**
 	 * This is the main method of the program contains only an instance of the
@@ -56,7 +60,7 @@ public class KenKenWindow extends JFrame {
 	 * This is the constructor for this class
 	 */
 	public KenKenWindow() {
-		JOptionPane.showMessageDialog(null, intro);
+		JOptionPane.showMessageDialog(null, intro, "Kenken-Program", 1);
 		this.setTitle("KenKen Puzzle");
 		this.setSize(win_wid, win_hei);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -86,10 +90,29 @@ public class KenKenWindow extends JFrame {
 		mBar = new JMenuBar();
 		file = buildFileMenu();
 		solve = buildSolveMenu();
+		help = buildHelpMenu();
 		// Adding the Menus to the menuBar
 		mBar.add(file);
 		mBar.add(solve);
+		mBar.add(help);
 		return mBar;
+	}
+
+	/**
+	 * This method builds the menu items in the menu option in the JFrame window
+	 * 
+	 * @return help
+	 */
+	private JMenu buildHelpMenu() {
+		help = new JMenu("Help");
+		helpMenu = new JMenuItem("Game Helper");
+		// Hook up the menu items with the listener
+
+		MyListener listener = new MyListener();
+		helpMenu.addActionListener(listener);
+		// Adding the JMenuItem to the JMenu
+		help.add(helpMenu);
+		return help;
 	}
 
 	/**
@@ -99,15 +122,19 @@ public class KenKenWindow extends JFrame {
 	 */
 	private JMenu buildSolveMenu() {
 		solve = new JMenu("Solve");
-		with_constr_consist = new JMenuItem("Run Constraint Consistency");
+
+		backTrack = new JMenuItem("BackTrack");
+		run = new JMenuItem("CSP Search");
 
 		// Hook up the menu items with the listener
 
 		MyListener listener = new MyListener();
-		with_constr_consist.addActionListener(listener);
+		run.addActionListener(listener);
+		backTrack.addActionListener(listener);
 
 		// Adding the JMenuItem to the JMenu
-		solve.add(with_constr_consist);
+		solve.add(run);
+		solve.add(backTrack);
 		return solve;
 	}
 
@@ -120,18 +147,15 @@ public class KenKenWindow extends JFrame {
 		file = new JMenu("File");
 
 		loadFile = new JMenuItem("Load File");
-		saveFile = new JMenuItem("Save File");
 		exit = new JMenuItem("Exit");
 
 		// Hook up the menu items with the listener
 		MyListener listener = new MyListener();
 		loadFile.addActionListener(listener);
-		saveFile.addActionListener(listener);
 		exit.addActionListener(listener);
 
 		// Adding the JMenuItem to the menus
 		file.add(loadFile);
-		file.add(saveFile);
 		file.add(exit);
 
 		return file;
@@ -143,6 +167,7 @@ public class KenKenWindow extends JFrame {
 	 */
 	public class MyListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
+
 			// Checks for the items clicked in the JMenu
 			if (e.getSource() == loadFile) {
 				input = getFile();
@@ -156,17 +181,14 @@ public class KenKenWindow extends JFrame {
 				repaint();
 				setVisible(true);
 			}
-			// // Checks if the saveMenuItem is clicked
-			// if (e.getSource() == saveFile) {
-			// // Doesn't work right now
-			// }
 
 			// Checks if the exitMenuItem is clicked
 			if (e.getSource() == exit) {
 				System.exit(0);
 			}
+
 			// Checks if the with_constr_consist is clicked
-			if (e.getSource() == with_constr_consist) {
+			if (e.getSource() == run) {
 				kenkenPuzzle.solve();
 				repaint();
 				// Displays the winning message
@@ -174,6 +196,22 @@ public class KenKenWindow extends JFrame {
 					JOptionPane.showMessageDialog(null,
 							"Congratulation! You Solved the puzzle");
 				}
+			}
+			// Checks if backTrack is clicked
+			if (e.getSource() == backTrack) {
+				kenkenPuzzle.runBacktracking();
+				repaint();
+				// Displays the winning message
+				if (kenkenPuzzle.isSolved()) {
+					JOptionPane.showMessageDialog(null,
+							"Congratulation! You Solved the puzzle");
+				}
+			}
+			if (e.getSource() == helpMenu) {
+				JOptionPane.showMessageDialog(null,
+						"First run the CSP search\n"
+								+ "If no changes in the domain\n"
+								+ "Run backTrack");
 			}
 		}
 	}
@@ -190,6 +228,7 @@ public class KenKenWindow extends JFrame {
 
 			// Get the filename using JFileChoose
 			chooser = new JFileChooser();
+			chooser.setCurrentDirectory(new File("../AI-HW2"));
 			int status = chooser.showOpenDialog(null);
 			if (status != JFileChooser.APPROVE_OPTION) {
 				System.out.println("No File Chosen");

@@ -1,5 +1,12 @@
 /**
- * This is the Cell class that creates cells for the kenken puzzle
+ * This is the variable class that creates variables for the kenken puzzle
+ * This class contains a constuctor that takes two parameter
+ * This class contains an initDomain method that initialized the domain
+ * This class contains an addDomain method that adds domain to the domainlist
+ * This class contains a reduceDomain method that reduces the domain from the domainlist
+ * This class contains a getDomain method that returns the arraylist of the domains for the specific variable or cell
+ * This class contains a clearDomain method that clears the arraylist of the domain for the specific variable
+ * This class contains addConstraint method that adds the constraint to the specific variable
  * @author Sujan
  *last updated: March 20, 2016
  */
@@ -9,12 +16,12 @@ public class Variable {
 
 	private int row;
 	private int col;
-	private Domain domain;
+	private ArrayList<Integer> reduceDomList;
+
 	protected int assignment = 0;
 	protected boolean isAssigned = false;
-
-	private ArrayList<Integer> reduceDomList;
 	protected Constraint constraint = null;
+	protected Domain domain;
 
 	/**
 	 * This a constructor for the Cell class
@@ -25,26 +32,10 @@ public class Variable {
 	public Variable(int nextInt, int nextInt2) {
 		this.row = nextInt;
 		this.col = nextInt2;
-
 		// Instantiating the Domain object
 		this.domain = new Domain();
 		reduceDomList = new ArrayList<Integer>();
 		constraint = new Constraint();
-	}
-
-	public void initDomain(int size) {
-		for (int i = 1; i <= size; i++) {
-			domain.add(i);
-		}
-	}
-
-	/**
-	 * This method adds val to the domainlist
-	 * 
-	 * @param val
-	 */
-	public void addDomain(int val) {
-		domain.add(val);
 	}
 
 	/**
@@ -61,23 +52,6 @@ public class Variable {
 	 */
 	public void reduceDomainList(Integer val) {
 		reduceDomList.add(val);
-	}
-
-	/**
-	 * This is a getter for domain list
-	 * 
-	 * @return domain.list()
-	 */
-	public ArrayList<Integer> getDomain() {
-		return domain.list();
-	}
-
-	/**
-	 * This method clears the domain
-	 */
-	public void clearDomain() {
-		this.domain.list().clear();
-		;
 	}
 
 	/**
@@ -107,6 +81,11 @@ public class Variable {
 		return "Cell [row=" + row + ", col=" + col + "]";
 	}
 
+	/**
+	 * This method adds the constraint to the variable
+	 * 
+	 * @param constraint
+	 */
 	public void addConstraints(Constraint constraint) {
 
 		this.constraint = (constraint);

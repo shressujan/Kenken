@@ -1,39 +1,54 @@
 /**
  * This class is called inside the Variable class
  * Used to form the domains for each variables in the kenken puzzle
+ * This class contains a constructor 
+ * This class contains an add method that add domains to the domainlist
+ * This class contains reduce method that remove the domain from the domainlist
  * @author Sujan
- * last updated: March 21, 2016
+ * last updated: April 29, 2016
  */
 import java.util.ArrayList;
 
 public class Domain {
 
-	private ArrayList<Integer> values;
+	protected ArrayList<Integer> list;
 
 	/**
-	 * This is a constructor for this class
+	 * This is a constructor for this class Initialized the variable as a new
+	 * Arraylist<Integer>
 	 */
 	public Domain() {
 		// Defines the domains for the variable (Cell)
-		values = new ArrayList<Integer>();
+		list = new ArrayList<Integer>();
 	}
 
 	/**
-	 * This method add the domain to the domain list
+	 * This method adds the values in the domain
+	 * 
+	 * @param size
+	 */
+	public void initDomain(int size) {
+		for (int i = 1; i <= size; i++) {
+			list.add(i);
+		}
+	}
+
+	/**
+	 * This method clears the domain
+	 */
+	public void clearDomain() {
+		this.list.clear();
+	}
+
+	/**
+	 * This method clears the domain list Then adds the domain to the domain
+	 * list
 	 * 
 	 * @return domain
 	 */
 	public void add(int v) {
-		values.add(v);
-	}
-
-	/**
-	 * This method returns the domains as an arraylist of integers
-	 * 
-	 * @return values
-	 */
-	public ArrayList<Integer> list() {
-		return values;
+		list.clear();
+		list.add(v);
 	}
 
 	/**
@@ -41,9 +56,9 @@ public class Domain {
 	 */
 	public void reduce(ArrayList<Integer> val) {
 		for (int i = 0; i < val.size(); i++) {
-			for (int j = 0; j < values.size(); j++) {
-				if (val.get(i) == values.get(j)) {
-					values.remove(j);
+			for (int j = 0; j < list.size(); j++) {
+				if (val.get(i) == list.get(j)) {
+					list.remove(j);
 				}
 			}
 		}
@@ -56,7 +71,7 @@ public class Domain {
 	 */
 	public String toString() {
 		String info = "";
-		for (Integer i : this.values) {
+		for (Integer i : this.list) {
 			info += i.toString() + " ";
 		}
 		info = info.substring(0, info.length());

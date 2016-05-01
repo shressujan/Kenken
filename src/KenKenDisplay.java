@@ -17,8 +17,8 @@ public class KenKenDisplay extends JPanel {
 
 	int cellSize = 50;
 	int divWid = 4;
-	int start_X = 50;
-	int start_Y = 50;
+	int start_X = 150;
+	int start_Y = 100;
 	int letterOffSet_Y = 18;
 	int letterOffSet_X = 2;
 	int offSetMiddle_X = 18;
@@ -46,7 +46,6 @@ public class KenKenDisplay extends JPanel {
 
 		int selectedRow = (y - start_Y - divWid) / (cellSize + divWid);
 		int selectedCol = (x - start_X - divWid) / (cellSize + divWid);
-		System.out.println("\t" + selectedRow + " " + selectedCol);
 		puzzle.generateMove(selectedRow, selectedCol);
 		repaint();
 	}
@@ -143,15 +142,14 @@ public class KenKenDisplay extends JPanel {
 			// For writing the value in the cell
 			for (int row = 0; row < puzzle.rowSize; row++) {
 				for (int col = 0; col < puzzle.colSize; col++) {
-					if (puzzle.getVar(row, col).getDomain().size() == 1) {
-						puzzle.getVar(row, col).isAssigned = true;
-						puzzle.getVar(row, col).assignment = puzzle
-								.getVar(row, col).getDomain().get(0);
+					if (puzzle.allvars[row][col].domain.list.size() == 1) {
 						g.setColor(Color.GREEN);
 						g.setFont(bigFont);
-						g.drawString(""
-								+ puzzle.getVar(row, col).getDomain().get(0),
-								start_X + divWid + (cellSize + divWid) * col
+						g.drawString(
+								""
+										+ puzzle.allvars[row][col].domain.list
+												.get(0), start_X + divWid
+										+ (cellSize + divWid) * col
 										+ offSetMiddle_X, start_Y + divWid
 										+ (cellSize + divWid) * row
 										+ offSetMiddle_Y);
