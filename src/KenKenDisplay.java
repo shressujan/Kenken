@@ -11,18 +11,21 @@ import java.awt.Graphics;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class KenKenDisplay extends JPanel {
 
-	int cellSize = 50;
-	int divWid = 4;
-	int start_X = 150;
-	int start_Y = 100;
-	int letterOffSet_Y = 18;
-	int letterOffSet_X = 2;
-	int offSetMiddle_X = 18;
-	int offSetMiddle_Y = 45;
+	private int cellSize = 50;
+	private int divWid = 4;
+	private int start_X = 150;
+	private int start_Y = 100;
+	private int screenright = 510;
+	private int screentop = 50;
+	private int letterOffSet_Y = 18;
+	private int letterOffSet_X = 2;
+	private int offSetMiddle_X = 18;
+	private int offSetMiddle_Y = 45;
 	private KenKenPuzzle puzzle;
 
 	Font bigFont = new Font("Arial", 1, 33);
@@ -33,11 +36,15 @@ public class KenKenDisplay extends JPanel {
 	 */
 	public KenKenDisplay(KenKenPuzzle puzzle) {
 		this.puzzle = puzzle;
+	}
+
+	public void Manual() {
 		this.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent me) {
 				processClick(me);
 			}
 		});
+
 	}
 
 	public void processClick(MouseEvent me) {
@@ -48,6 +55,17 @@ public class KenKenDisplay extends JPanel {
 		int selectedCol = (x - start_X - divWid) / (cellSize + divWid);
 		puzzle.generateMove(selectedRow, selectedCol);
 		repaint();
+		puzzle.SearchSpace();
+		if (puzzle.isFilled()) {
+			puzzle.solve();
+			if (puzzle.isFilled()) {
+				JOptionPane.showMessageDialog(null,
+						"Congratulation! You Solved the puzzle");
+			} else {
+				JOptionPane.showMessageDialog(null,
+						"Sorry! You didn't solve the puzzle");
+			}
+		}
 	}
 
 	/**
@@ -69,6 +87,7 @@ public class KenKenDisplay extends JPanel {
 						cellSize);
 			}
 		}
+
 		for (int i = 0; i < puzzle.allConstraints.size(); i++) {
 			// For building the borders of connected constraint cells
 			int currentConstraintRow;
@@ -142,20 +161,22 @@ public class KenKenDisplay extends JPanel {
 			// For writing the value in the cell
 			for (int row = 0; row < puzzle.rowSize; row++) {
 				for (int col = 0; col < puzzle.colSize; col++) {
-					if (puzzle.allvars[row][col].domain.list.size() == 1) {
+					if (puzzle.allvars[row][col].domain.list.size() == 1
+							|| puzzle.allvars[row][col].isAssigned) {
 						g.setColor(Color.GREEN);
 						g.setFont(bigFont);
-						g.drawString(
-								""
-										+ puzzle.allvars[row][col].domain.list
-												.get(0), start_X + divWid
-										+ (cellSize + divWid) * col
+						g.drawString("" + puzzle.allvars[row][col].assignment,
+								start_X + divWid + (cellSize + divWid) * col
 										+ offSetMiddle_X, start_Y + divWid
 										+ (cellSize + divWid) * row
 										+ offSetMiddle_Y);
 					}
 				}
 			}
+			g.setColor(Color.BLACK);
+			g.setFont(smallFont);
+			g.drawString("SearchSpace= " + puzzle.searchSpace, screenright,
+					screentop);
 		}
 	}
 }

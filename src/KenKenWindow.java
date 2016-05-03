@@ -28,6 +28,7 @@ public class KenKenWindow extends JFrame {
 	private JMenu file;
 	private JMenu solve;
 	private JMenu help;
+	private JMenu mode;
 
 	private JMenuItem loadFile;
 	private JMenuItem saveFile;
@@ -35,6 +36,7 @@ public class KenKenWindow extends JFrame {
 	private JMenuItem run;
 	private JMenuItem backTrack;
 	private JMenuItem helpMenu;
+	protected JMenuItem userMode;
 
 	private File input;
 	private KenKenPuzzle kenkenPuzzle;
@@ -42,8 +44,9 @@ public class KenKenWindow extends JFrame {
 
 	private String intro = "This is a kenken solver program \n"
 			+ "Asks the user to choose the kenken puzzle\n"
-			+ "Uses Artificial intelligence (Arc, Node-consistency, k consistency and backtracking) to solve the puzzle\n"
-			+ "User can also click on the cells of the puzzle to enter any number";
+			+ "has a Auto-mode to solve the puzzle using Artificial Intelligence\n"
+			+ "(Arc, Node-consistency,inequality constraint, k consistency and backtracking) to solve the puzzle\n"
+			+ "has a Manual mode \n User can click on desired cells of the puzzle to enter any number that may satisfy the constraints";
 
 	/**
 	 * This is the main method of the program contains only an instance of the
@@ -90,12 +93,32 @@ public class KenKenWindow extends JFrame {
 		mBar = new JMenuBar();
 		file = buildFileMenu();
 		solve = buildSolveMenu();
+		mode = buildModeMenu();
 		help = buildHelpMenu();
 		// Adding the Menus to the menuBar
 		mBar.add(file);
 		mBar.add(solve);
+		mBar.add(mode);
 		mBar.add(help);
 		return mBar;
+	}
+
+	/**
+	 * This method builds the menu items in the menu option in the JFrame window
+	 * 
+	 * @return mode
+	 */
+	private JMenu buildModeMenu() {
+		mode = new JMenu("Manual");
+		userMode = new JMenuItem("User-Mode");
+
+		// Hook up the menu items with the listener
+
+		MyListener listener = new MyListener();
+		userMode.addActionListener(listener);
+		// Adding the JMenuItem to the JMenu
+		mode.add(userMode);
+		return mode;
 	}
 
 	/**
@@ -104,8 +127,8 @@ public class KenKenWindow extends JFrame {
 	 * @return help
 	 */
 	private JMenu buildHelpMenu() {
-		help = new JMenu("Help");
-		helpMenu = new JMenuItem("Game Helper");
+		help = new JMenu("Game-Assist");
+		helpMenu = new JMenuItem("Help");
 		// Hook up the menu items with the listener
 
 		MyListener listener = new MyListener();
@@ -121,10 +144,10 @@ public class KenKenWindow extends JFrame {
 	 * @return solve
 	 */
 	private JMenu buildSolveMenu() {
-		solve = new JMenu("Solve");
+		solve = new JMenu("Auto-Mode");
 
-		backTrack = new JMenuItem("BackTrack");
-		run = new JMenuItem("CSP Search");
+		backTrack = new JMenuItem("BackTrack-Solve");
+		run = new JMenuItem("CSP-Solve ");
 
 		// Hook up the menu items with the listener
 
@@ -190,9 +213,10 @@ public class KenKenWindow extends JFrame {
 			// Checks if the with_constr_consist is clicked
 			if (e.getSource() == run) {
 				kenkenPuzzle.solve();
+
 				repaint();
 				// Displays the winning message
-				if (kenkenPuzzle.isSolved()) {
+				if (kenkenPuzzle.isFilled()) {
 					JOptionPane.showMessageDialog(null,
 							"Congratulation! You Solved the puzzle");
 				}
@@ -200,17 +224,23 @@ public class KenKenWindow extends JFrame {
 			// Checks if backTrack is clicked
 			if (e.getSource() == backTrack) {
 				kenkenPuzzle.runBacktracking();
+
 				repaint();
 				// Displays the winning message
-				if (kenkenPuzzle.isSolved()) {
+				if (kenkenPuzzle.isFilled()) {
 					JOptionPane.showMessageDialog(null,
 							"Congratulation! You Solved the puzzle");
 				}
 			}
+			// Checks if userMode is clicked
+			if (e.getSource() == userMode) {
+				kenkenDisplay.Manual();
+			}
 			if (e.getSource() == helpMenu) {
 				JOptionPane.showMessageDialog(null,
 						"First run the CSP search\n"
-								+ "If no changes in the domain\n"
+								+ "If no changes in the domain and\n"
+								+ "If no change in search space\n"
 								+ "Run backTrack");
 			}
 		}

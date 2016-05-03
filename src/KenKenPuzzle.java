@@ -22,10 +22,11 @@ public class KenKenPuzzle {
 	protected ArrayList<Constraint> allConstraints;
 	private ArrayList<Constraint> allInEqualityConstraints;
 	protected Variable[][] allvars;
-	Stack<Variable> unassigned;
-	Stack<Variable> assigned;
+	protected Stack<Variable> unassigned;
+	protected Stack<Variable> assigned;
 	protected int rowSize;
 	protected int colSize;
+	protected int searchSpace;
 
 	/**
 	 * This is the constructor for this class
@@ -33,10 +34,12 @@ public class KenKenPuzzle {
 	public KenKenPuzzle(File input) {
 		allConstraints = new ArrayList<Constraint>();
 		allInEqualityConstraints = new ArrayList<Constraint>();
+		// Calling the loadFromFile method to load the file
 		loadFromFile(input);
+		// Calling NodeConsistency and forInEqualityConstr method
 		NodeConsistency();
 		formInEqualityConstr();
-
+		SearchSpace();
 	}
 
 	/**
@@ -163,6 +166,9 @@ public class KenKenPuzzle {
 				int curCol = c.getConstraintVariables().get(0).getCol();
 				allvars[curRow][curCol].domain.clearDomain();
 				allvars[curRow][curCol].domain.add(c.getConstraintNum());
+				allvars[curRow][curCol].assignment = allvars[curRow][curCol].domain.list
+						.get(0);
+				allvars[curRow][curCol].isAssigned = true;
 			}
 
 		}
@@ -1140,8 +1146,7 @@ public class KenKenPuzzle {
 			var2.reduceDomainList(var1.domain.list.get(0));
 			var2.reduceDomain();
 
-		}
-		if (var2.domain.list.size() == 1) {
+		} else if (var2.domain.list.size() == 1) {
 			var1.reduceDomainList(var2.domain.list.get(0));
 			var1.reduceDomain();
 
@@ -1739,11 +1744,21 @@ public class KenKenPuzzle {
 		String displayMesg = JOptionPane.showInputDialog("Enter the number");
 		if (displayMesg != null) {
 			int assign = Integer.parseInt(displayMesg);
-			synchronized (allvars) {
-				allvars[r][c].domain.add(assign);
-			}
+			allvars[r][c].domain.add(assign);
+			allvars[r][c].assignment = allvars[r][c].domain.list.get(0);
+			allvars[r][c].isAssigned = true;
+
 		}
 		// System.out.println(allvars[r][c].getDomain());
+	}
+
+	public void SearchSpace() {
+		searchSpace = 0;
+		for (int i = 0; i < rowSize; i++) {
+			for (int j = 0; j < colSize; j++) {
+				searchSpace += allvars[i][j].domain.list.size();
+			}
+		}
 	}
 
 	/**
@@ -1753,6 +1768,8 @@ public class KenKenPuzzle {
 	public void solve() {
 
 		ArcConsistency();
+		AssignedAndUnAssigned();
+		SearchSpace();
 
 		// Prints out the domains in the variable every time user clicks the
 
@@ -1766,7 +1783,6 @@ public class KenKenPuzzle {
 
 	public void runBacktracking() {
 		AssignedAndUnAssigned();
-
 		if (backTrackSearch() == false) {
 			JOptionPane.showMessageDialog(null, "Can't be solved");
 		}
@@ -1806,24 +1822,19 @@ public class KenKenPuzzle {
 
 		else {
 			var = unassigned.pop();
-			synchronized (allvars) {
-				var.isAssigned = true;
-			}
+			var.isAssigned = true;
 			for (int i : var.domain.list) {
-				synchronized (allvars) {
-					var.assignment = i;
-				}
+				var.assignment = i;
 				boolean valid = checkConstraints(var);
 				if (valid) {
 					assigned.push(var);
-					var.domain.add(var.assignment);// IS this supposed to be
-													// here
 					if (backTrackSearch() == true) {
 						return true;
 					}
-				} else {
-					assigned.pop();
 				}
+				// else {
+				// assigned.pop();
+				// }
 			}
 			var.assignment = 0;
 			var.isAssigned = false;
@@ -1945,7 +1956,7 @@ public class KenKenPuzzle {
 	 * 
 	 * @return true or false
 	 */
-	public boolean isSolved() {
+	public boolean isFilled() {
 		for (int i = 0; i < rowSize; i++) {
 			for (int j = 0; j < colSize; j++) {
 				if (allvars[i][j].domain.list.size() != 1) {
