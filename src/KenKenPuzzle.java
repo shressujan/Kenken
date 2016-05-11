@@ -27,11 +27,13 @@ public class KenKenPuzzle {
 	protected int rowSize;
 	protected int colSize;
 	protected int searchSpace;
+	private File input;
 
 	/**
 	 * This is the constructor for this class
 	 */
 	public KenKenPuzzle(File input) {
+		this.input = input;
 		allConstraints = new ArrayList<Constraint>();
 		allInEqualityConstraints = new ArrayList<Constraint>();
 		// Calling the loadFromFile method to load the file
@@ -259,49 +261,26 @@ public class KenKenPuzzle {
 
 			boolean checkIfExists = false;
 			for (int k = 0; k < var2.domain.list.size(); k++) {
-				if (var1.domain.list.get(j) != var2.domain.list.get(k)) {
+				{
 					int holdDomain = constrNumplusDomain
 							- var2.domain.list.get(k);
 
 					for (int l = 0; l < var3.domain.list.size(); l++) {
-						if (var3.domain.list.get(l) != var1.domain.list.get(j)
-								&& var2.domain.list.get(k) != var3.domain.list
-										.get(l)) {
+						{
 							int holdDomain2 = holdDomain
 									- var3.domain.list.get(l);
 
 							for (int m = 0; m < var4.domain.list.size(); m++) {
-								if (var4.domain.list.get(m) != var1.domain.list
-										.get(j)
-										&& var4.domain.list.get(m) != var2.domain.list
-												.get(k)
-										&& var4.domain.list.get(m) != var3.domain.list
-												.get(l)) {
+								{
 									int holdDomain3 = holdDomain2
 											- var4.domain.list.get(m);
 									for (int n = 0; n < var5.domain.list.size(); n++) {
-										if (var5.domain.list.get(n) != var1.domain.list
-												.get(j)
-												&& var5.domain.list.get(n) != var2.domain.list
-														.get(k)
-												&& var5.domain.list.get(n) != var3.domain.list
-														.get(l)
-												&& var5.domain.list.get(n) != var4.domain.list
-														.get(m)) {
+										{
 											int holdDomain4 = holdDomain3
 													- var5.domain.list.get(n);
 											for (int p = 0; p < var6.domain.list
 													.size(); p++) {
-												if (holdDomain4 != var1.domain.list
-														.get(j)
-														&& holdDomain4 != var2.domain.list
-																.get(k)
-														&& holdDomain4 != var3.domain.list
-																.get(l)
-														&& holdDomain4 != var4.domain.list
-																.get(m)
-														&& holdDomain4 != var5.domain.list
-																.get(n)) {
+												{
 													if (holdDomain4 == var6.domain.list
 															.get(p)) {
 														checkIfExists = true;
@@ -329,49 +308,26 @@ public class KenKenPuzzle {
 
 			boolean checkIfExists = false;
 			for (int k = 0; k < var3.domain.list.size(); k++) {
-				if (var2.domain.list.get(j) != var3.domain.list.get(k)) {
+				{
 					int holdDomain = constrNumplusDomain
 							- var3.domain.list.get(k);
 
 					for (int l = 0; l < var4.domain.list.size(); l++) {
-						if (var4.domain.list.get(l) != var2.domain.list.get(j)
-								&& var4.domain.list.get(l) != var3.domain.list
-										.get(k)) {
+						{
 							int holdDomain2 = holdDomain
 									- var4.domain.list.get(l);
 
 							for (int m = 0; m < var5.domain.list.size(); m++) {
-								if (var5.domain.list.get(m) != var2.domain.list
-										.get(j)
-										&& var5.domain.list.get(m) != var3.domain.list
-												.get(k)
-										&& var5.domain.list.get(m) != var4.domain.list
-												.get(l)) {
+								{
 									int holdDomain3 = holdDomain2
 											- var5.domain.list.get(m);
 									for (int n = 0; n < var6.domain.list.size(); n++) {
-										if (var6.domain.list.get(n) != var2.domain.list
-												.get(j)
-												&& var6.domain.list.get(n) != var3.domain.list
-														.get(k)
-												&& var6.domain.list.get(n) != var4.domain.list
-														.get(l)
-												&& var6.domain.list.get(n) != var5.domain.list
-														.get(m)) {
+										{
 											int holdDomain4 = holdDomain3
 													- var6.domain.list.get(n);
 											for (int p = 0; p < var1.domain.list
 													.size(); p++) {
-												if (holdDomain4 != var2.domain.list
-														.get(j)
-														&& holdDomain4 != var3.domain.list
-																.get(k)
-														&& holdDomain4 != var4.domain.list
-																.get(l)
-														&& holdDomain4 != var5.domain.list
-																.get(m)
-														&& holdDomain4 != var6.domain.list
-																.get(n)) {
+												{
 													if (holdDomain4 == var1.domain.list
 															.get(p)) {
 														checkIfExists = true;
@@ -399,49 +355,26 @@ public class KenKenPuzzle {
 
 			boolean checkIfExists = false;
 			for (int k = 0; k < var4.domain.list.size(); k++) {
-				if (var3.domain.list.get(j) != var4.domain.list.get(k)) {
+				{
 					int holdDomain = constrNumplusDomain
 							- var4.domain.list.get(k);
 
 					for (int l = 0; l < var5.domain.list.size(); l++) {
-						if (var5.domain.list.get(l) != var3.domain.list.get(j)
-								&& var5.domain.list.get(l) != var4.domain.list
-										.get(k)) {
+						{
 							int holdDomain2 = holdDomain
 									- var5.domain.list.get(l);
 
 							for (int m = 0; m < var6.domain.list.size(); m++) {
-								if (var6.domain.list.get(m) != var3.domain.list
-										.get(j)
-										&& var6.domain.list.get(m) != var4.domain.list
-												.get(k)
-										&& var6.domain.list.get(m) != var5.domain.list
-												.get(l)) {
+								{
 									int holdDomain3 = holdDomain2
 											- var6.domain.list.get(m);
 									for (int n = 0; n < var1.domain.list.size(); n++) {
-										if (var1.domain.list.get(n) != var3.domain.list
-												.get(j)
-												&& var1.domain.list.get(n) != var4.domain.list
-														.get(k)
-												&& var1.domain.list.get(n) != var5.domain.list
-														.get(l)
-												&& var1.domain.list.get(n) != var6.domain.list
-														.get(m)) {
+										{
 											int holdDomain4 = holdDomain3
 													- var1.domain.list.get(n);
 											for (int p = 0; p < var2.domain.list
 													.size(); p++) {
-												if (holdDomain4 != var3.domain.list
-														.get(j)
-														&& holdDomain4 != var4.domain.list
-																.get(k)
-														&& holdDomain4 != var5.domain.list
-																.get(l)
-														&& holdDomain4 != var6.domain.list
-																.get(m)
-														&& holdDomain4 != var1.domain.list
-																.get(n)) {
+												{
 													if (holdDomain4 == var2.domain.list
 															.get(p)) {
 														checkIfExists = true;
@@ -469,49 +402,26 @@ public class KenKenPuzzle {
 
 			boolean checkIfExists = false;
 			for (int k = 0; k < var5.domain.list.size(); k++) {
-				if (var4.domain.list.get(j) != var5.domain.list.get(k)) {
+				{
 					int holdDomain = constrNumplusDomain
 							- var5.domain.list.get(k);
 
 					for (int l = 0; l < var6.domain.list.size(); l++) {
-						if (var6.domain.list.get(l) != var4.domain.list.get(j)
-								&& var6.domain.list.get(l) != var5.domain.list
-										.get(k)) {
+						{
 							int holdDomain2 = holdDomain
 									- var6.domain.list.get(l);
 
 							for (int m = 0; m < var1.domain.list.size(); m++) {
-								if (var1.domain.list.get(m) != var4.domain.list
-										.get(j)
-										&& var1.domain.list.get(m) != var5.domain.list
-												.get(k)
-										&& var1.domain.list.get(m) != var6.domain.list
-												.get(l)) {
+								{
 									int holdDomain3 = holdDomain2
 											- var1.domain.list.get(m);
 									for (int n = 0; n < var2.domain.list.size(); n++) {
-										if (var2.domain.list.get(n) != var4.domain.list
-												.get(j)
-												&& var2.domain.list.get(n) != var5.domain.list
-														.get(k)
-												&& var2.domain.list.get(n) != var6.domain.list
-														.get(l)
-												&& var2.domain.list.get(n) != var1.domain.list
-														.get(m)) {
+										{
 											int holdDomain4 = holdDomain3
 													- var2.domain.list.get(n);
 											for (int p = 0; p < var3.domain.list
 													.size(); p++) {
-												if (holdDomain4 != var4.domain.list
-														.get(j)
-														&& holdDomain4 != var5.domain.list
-																.get(k)
-														&& holdDomain4 != var6.domain.list
-																.get(l)
-														&& holdDomain4 != var1.domain.list
-																.get(m)
-														&& holdDomain4 != var2.domain.list
-																.get(n)) {
+												{
 													if (holdDomain4 == var3.domain.list
 															.get(p)) {
 														checkIfExists = true;
@@ -539,49 +449,26 @@ public class KenKenPuzzle {
 
 			boolean checkIfExists = false;
 			for (int k = 0; k < var6.domain.list.size(); k++) {
-				if (var5.domain.list.get(j) != var6.domain.list.get(k)) {
+				{
 					int holdDomain = constrNumplusDomain
 							- var6.domain.list.get(k);
 
 					for (int l = 0; l < var1.domain.list.size(); l++) {
-						if (var1.domain.list.get(l) != var5.domain.list.get(j)
-								&& var1.domain.list.get(l) != var6.domain.list
-										.get(k)) {
+						{
 							int holdDomain2 = holdDomain
 									- var1.domain.list.get(l);
 
 							for (int m = 0; m < var2.domain.list.size(); m++) {
-								if (var2.domain.list.get(m) != var5.domain.list
-										.get(j)
-										&& var2.domain.list.get(m) != var6.domain.list
-												.get(k)
-										&& var2.domain.list.get(m) != var1.domain.list
-												.get(l)) {
+								{
 									int holdDomain3 = holdDomain2
 											- var2.domain.list.get(m);
 									for (int n = 0; n < var3.domain.list.size(); n++) {
-										if (var3.domain.list.get(n) != var5.domain.list
-												.get(j)
-												&& var3.domain.list.get(n) != var6.domain.list
-														.get(k)
-												&& var3.domain.list.get(n) != var1.domain.list
-														.get(l)
-												&& var3.domain.list.get(n) != var2.domain.list
-														.get(m)) {
+										{
 											int holdDomain4 = holdDomain3
 													- var3.domain.list.get(n);
 											for (int p = 0; p < var4.domain.list
 													.size(); p++) {
-												if (holdDomain4 != var5.domain.list
-														.get(j)
-														&& holdDomain4 != var6.domain.list
-																.get(k)
-														&& holdDomain4 != var1.domain.list
-																.get(l)
-														&& holdDomain4 != var2.domain.list
-																.get(m)
-														&& holdDomain4 != var3.domain.list
-																.get(n)) {
+												{
 													if (holdDomain4 == var4.domain.list
 															.get(p)) {
 														checkIfExists = true;
@@ -609,49 +496,26 @@ public class KenKenPuzzle {
 
 			boolean checkIfExists = false;
 			for (int k = 0; k < var1.domain.list.size(); k++) {
-				if (var6.domain.list.get(j) != var1.domain.list.get(k)) {
+				{
 					int holdDomain = constrNumplusDomain
 							- var1.domain.list.get(k);
 
 					for (int l = 0; l < var2.domain.list.size(); l++) {
-						if (var2.domain.list.get(l) != var6.domain.list.get(j)
-								&& var2.domain.list.get(l) != var1.domain.list
-										.get(k)) {
+						{
 							int holdDomain2 = holdDomain
 									- var2.domain.list.get(l);
 
 							for (int m = 0; m < var3.domain.list.size(); m++) {
-								if (var3.domain.list.get(m) != var6.domain.list
-										.get(j)
-										&& var3.domain.list.get(m) != var1.domain.list
-												.get(k)
-										&& var3.domain.list.get(m) != var2.domain.list
-												.get(l)) {
+								{
 									int holdDomain3 = holdDomain2
 											- var3.domain.list.get(m);
 									for (int n = 0; n < var4.domain.list.size(); n++) {
-										if (var4.domain.list.get(n) != var6.domain.list
-												.get(j)
-												&& var4.domain.list.get(n) != var1.domain.list
-														.get(k)
-												&& var4.domain.list.get(n) != var2.domain.list
-														.get(l)
-												&& var4.domain.list.get(n) != var3.domain.list
-														.get(m)) {
+										{
 											int holdDomain4 = holdDomain3
 													- var4.domain.list.get(n);
 											for (int p = 0; p < var5.domain.list
 													.size(); p++) {
-												if (holdDomain4 != var6.domain.list
-														.get(j)
-														&& holdDomain4 != var1.domain.list
-																.get(k)
-														&& holdDomain4 != var2.domain.list
-																.get(l)
-														&& holdDomain4 != var3.domain.list
-																.get(m)
-														&& holdDomain4 != var4.domain.list
-																.get(n)) {
+												{
 													if (holdDomain4 == var5.domain.list
 															.get(p)) {
 														checkIfExists = true;
@@ -696,35 +560,21 @@ public class KenKenPuzzle {
 
 			boolean checkIfExists = false;
 			for (int k = 0; k < var2.domain.list.size(); k++) {
-				if (var1.domain.list.get(j) != var2.domain.list.get(k)) {
+				{
 					int holdDomain = constrNumplusDomain
 							- var2.domain.list.get(k);
 
 					for (int l = 0; l < var3.domain.list.size(); l++) {
-						if (var3.domain.list.get(l) != var1.domain.list.get(j)
-								&& var2.domain.list.get(k) != var3.domain.list
-										.get(l)) {
+						{
 							int holdDomain2 = holdDomain
 									- var3.domain.list.get(l);
 
 							for (int m = 0; m < var4.domain.list.size(); m++) {
-								if (var4.domain.list.get(m) != var1.domain.list
-										.get(j)
-										&& var4.domain.list.get(m) != var2.domain.list
-												.get(k)
-										&& var4.domain.list.get(m) != var3.domain.list
-												.get(l)) {
+								{
 									int holdDomain3 = holdDomain2
 											- var4.domain.list.get(m);
 									for (int n = 0; n < var5.domain.list.size(); n++) {
-										if (holdDomain3 != var1.domain.list
-												.get(j)
-												&& holdDomain3 != var2.domain.list
-														.get(k)
-												&& holdDomain3 != var3.domain.list
-														.get(l)
-												&& holdDomain3 != var4.domain.list
-														.get(m)) {
+										{
 											if (holdDomain3 == var5.domain.list
 													.get(n)) {
 												checkIfExists = true;
@@ -750,35 +600,21 @@ public class KenKenPuzzle {
 
 			boolean checkIfExists = false;
 			for (int k = 0; k < var3.domain.list.size(); k++) {
-				if (var2.domain.list.get(j) != var3.domain.list.get(k)) {
+				{
 					int holdDomain = constrNumplusDomain
 							- var3.domain.list.get(k);
 
 					for (int l = 0; l < var4.domain.list.size(); l++) {
-						if (var4.domain.list.get(l) != var2.domain.list.get(j)
-								&& var4.domain.list.get(l) != var3.domain.list
-										.get(k)) {
+						{
 							int holdDomain2 = holdDomain
 									- var4.domain.list.get(l);
 
 							for (int m = 0; m < var5.domain.list.size(); m++) {
-								if (var5.domain.list.get(m) != var2.domain.list
-										.get(j)
-										&& var5.domain.list.get(m) != var3.domain.list
-												.get(k)
-										&& var5.domain.list.get(m) != var4.domain.list
-												.get(l)) {
+								{
 									int holdDomain3 = holdDomain2
 											- var4.domain.list.get(m);
 									for (int n = 0; n < var1.domain.list.size(); n++) {
-										if (holdDomain3 != var2.domain.list
-												.get(j)
-												&& holdDomain3 != var3.domain.list
-														.get(k)
-												&& holdDomain3 != var4.domain.list
-														.get(l)
-												&& holdDomain3 != var5.domain.list
-														.get(m)) {
+										{
 											if (holdDomain3 == var1.domain.list
 													.get(n)) {
 												checkIfExists = true;
@@ -804,35 +640,21 @@ public class KenKenPuzzle {
 
 			boolean checkIfExists = false;
 			for (int k = 0; k < var4.domain.list.size(); k++) {
-				if (var3.domain.list.get(j) != var4.domain.list.get(k)) {
+				{
 					int holdDomain = constrNumplusDomain
 							- var4.domain.list.get(k);
 
 					for (int l = 0; l < var5.domain.list.size(); l++) {
-						if (var5.domain.list.get(l) != var3.domain.list.get(j)
-								&& var5.domain.list.get(l) != var4.domain.list
-										.get(k)) {
+						{
 							int holdDomain2 = holdDomain
 									- var5.domain.list.get(l);
 
 							for (int m = 0; m < var1.domain.list.size(); m++) {
-								if (var1.domain.list.get(m) != var3.domain.list
-										.get(j)
-										&& var1.domain.list.get(m) != var4.domain.list
-												.get(k)
-										&& var1.domain.list.get(m) != var5.domain.list
-												.get(l)) {
+								{
 									int holdDomain3 = holdDomain2
 											- var1.domain.list.get(m);
 									for (int n = 0; n < var2.domain.list.size(); n++) {
-										if (holdDomain3 != var3.domain.list
-												.get(j)
-												&& holdDomain3 != var4.domain.list
-														.get(k)
-												&& holdDomain3 != var5.domain.list
-														.get(l)
-												&& holdDomain3 != var1.domain.list
-														.get(m)) {
+										{
 											if (holdDomain3 == var2.domain.list
 													.get(n)) {
 												checkIfExists = true;
@@ -858,35 +680,21 @@ public class KenKenPuzzle {
 
 			boolean checkIfExists = false;
 			for (int k = 0; k < var5.domain.list.size(); k++) {
-				if (var4.domain.list.get(j) != var5.domain.list.get(k)) {
+				{
 					int holdDomain = constrNumplusDomain
 							- var5.domain.list.get(k);
 
 					for (int l = 0; l < var1.domain.list.size(); l++) {
-						if (var1.domain.list.get(l) != var4.domain.list.get(j)
-								&& var1.domain.list.get(l) != var5.domain.list
-										.get(k)) {
+						{
 							int holdDomain2 = holdDomain
 									- var1.domain.list.get(l);
 
 							for (int m = 0; m < var2.domain.list.size(); m++) {
-								if (var2.domain.list.get(m) != var4.domain.list
-										.get(j)
-										&& var2.domain.list.get(m) != var5.domain.list
-												.get(k)
-										&& var2.domain.list.get(m) != var1.domain.list
-												.get(l)) {
+								{
 									int holdDomain3 = holdDomain2
 											- var2.domain.list.get(m);
 									for (int n = 0; n < var3.domain.list.size(); n++) {
-										if (holdDomain3 != var4.domain.list
-												.get(j)
-												&& holdDomain3 != var5.domain.list
-														.get(k)
-												&& holdDomain3 != var1.domain.list
-														.get(l)
-												&& holdDomain3 != var2.domain.list
-														.get(m)) {
+										{
 											if (holdDomain3 == var3.domain.list
 													.get(n)) {
 												checkIfExists = true;
@@ -912,35 +720,21 @@ public class KenKenPuzzle {
 
 			boolean checkIfExists = false;
 			for (int k = 0; k < var1.domain.list.size(); k++) {
-				if (var5.domain.list.get(j) != var1.domain.list.get(k)) {
+				{
 					int holdDomain = constrNumplusDomain
 							- var1.domain.list.get(k);
 
 					for (int l = 0; l < var2.domain.list.size(); l++) {
-						if (var2.domain.list.get(l) != var5.domain.list.get(j)
-								&& var2.domain.list.get(l) != var1.domain.list
-										.get(k)) {
+						{
 							int holdDomain2 = holdDomain
 									- var2.domain.list.get(l);
 
 							for (int m = 0; m < var3.domain.list.size(); m++) {
-								if (var3.domain.list.get(m) != var5.domain.list
-										.get(j)
-										&& var3.domain.list.get(m) != var1.domain.list
-												.get(k)
-										&& var3.domain.list.get(m) != var2.domain.list
-												.get(l)) {
+								{
 									int holdDomain3 = holdDomain2
 											- var3.domain.list.get(m);
 									for (int n = 0; n < var4.domain.list.size(); n++) {
-										if (holdDomain3 != var5.domain.list
-												.get(j)
-												&& holdDomain3 != var1.domain.list
-														.get(k)
-												&& holdDomain3 != var2.domain.list
-														.get(l)
-												&& holdDomain3 != var3.domain.list
-														.get(m)) {
+										{
 											if (holdDomain3 == var4.domain.list
 													.get(n)) {
 												checkIfExists = true;
@@ -980,23 +774,17 @@ public class KenKenPuzzle {
 
 			boolean checkIfExists = false;
 			for (int k = 0; k < var2.domain.list.size(); k++) {
-				if (var1.domain.list.get(j) != var2.domain.list.get(k)) {
+				{
 					int holdDomain = constrNumplusDomain
 							- var2.domain.list.get(k);
 
 					for (int l = 0; l < var3.domain.list.size(); l++) {
-						if (var3.domain.list.get(l) != var1.domain.list.get(j)
-								&& var2.domain.list.get(k) != var3.domain.list
-										.get(l)) {
+						{
 							int holdDomain2 = holdDomain
 									- var3.domain.list.get(l);
 
 							for (int m = 0; m < var4.domain.list.size(); m++) {
-								if (holdDomain2 != var1.domain.list.get(j)
-										&& holdDomain2 != var2.domain.list
-												.get(k)
-										&& holdDomain2 != var3.domain.list
-												.get(l)) {
+								{
 									if (holdDomain2 == var4.domain.list.get(m)) {
 										checkIfExists = true;
 									}
@@ -1018,23 +806,17 @@ public class KenKenPuzzle {
 
 			boolean checkIfExists = false;
 			for (int k = 0; k < var3.domain.list.size(); k++) {
-				if (var2.domain.list.get(j) != var3.domain.list.get(k)) {
+				{
 					int holdDomain = constrNumplusDomain
 							- var3.domain.list.get(k);
 
 					for (int l = 0; l < var4.domain.list.size(); l++) {
-						if (var4.domain.list.get(l) != var2.domain.list.get(j)
-								&& var3.domain.list.get(k) != var4.domain.list
-										.get(l)) {
+						{
 							int holdDomain2 = holdDomain
 									- var4.domain.list.get(l);
 
 							for (int m = 0; m < var1.domain.list.size(); m++) {
-								if (holdDomain2 != var2.domain.list.get(j)
-										&& holdDomain2 != var3.domain.list
-												.get(k)
-										&& holdDomain2 != var4.domain.list
-												.get(l)) {
+								{
 									if (holdDomain2 == var1.domain.list.get(m)) {
 										checkIfExists = true;
 									}
@@ -1056,23 +838,17 @@ public class KenKenPuzzle {
 
 			boolean checkIfExists = false;
 			for (int k = 0; k < var4.domain.list.size(); k++) {
-				if (var3.domain.list.get(j) != var4.domain.list.get(k)) {
+				{
 					int holdDomain = constrNumplusDomain
 							- var4.domain.list.get(k);
 
 					for (int l = 0; l < var1.domain.list.size(); l++) {
-						if (var1.domain.list.get(l) != var3.domain.list.get(j)
-								&& var4.domain.list.get(k) != var1.domain.list
-										.get(l)) {
+						{
 							int holdDomain2 = holdDomain
 									- var1.domain.list.get(l);
 
 							for (int m = 0; m < var2.domain.list.size(); m++) {
-								if (holdDomain2 != var3.domain.list.get(j)
-										&& holdDomain2 != var4.domain.list
-												.get(k)
-										&& holdDomain2 != var1.domain.list
-												.get(l)) {
+								{
 									if (holdDomain2 == var2.domain.list.get(m)) {
 										checkIfExists = true;
 									}
@@ -1093,23 +869,17 @@ public class KenKenPuzzle {
 
 			boolean checkIfExists = false;
 			for (int k = 0; k < var1.domain.list.size(); k++) {
-				if (var4.domain.list.get(j) != var1.domain.list.get(k)) {
+				{
 					int holdDomain = constrNumplusDomain
 							- var1.domain.list.get(k);
 
 					for (int l = 0; l < var2.domain.list.size(); l++) {
-						if (var2.domain.list.get(l) != var4.domain.list.get(j)
-								&& var1.domain.list.get(k) != var2.domain.list
-										.get(l)) {
+						{
 							int holdDomain2 = holdDomain
 									- var2.domain.list.get(l);
 
 							for (int m = 0; m < var3.domain.list.size(); m++) {
-								if (holdDomain2 != var4.domain.list.get(j)
-										&& holdDomain2 != var1.domain.list
-												.get(k)
-										&& holdDomain2 != var2.domain.list
-												.get(l)) {
+								{
 									if (holdDomain2 == var3.domain.list.get(m)) {
 										checkIfExists = true;
 									}
@@ -1165,13 +935,12 @@ public class KenKenPuzzle {
 
 			boolean checkIfExists = false;
 			for (int k = 0; k < var2.domain.list.size(); k++) {
-				if (var1.domain.list.get(j) != var2.domain.list.get(k)) {
+				{
 					int holdDomain = constrNumplusDomain
 							- var2.domain.list.get(k);
 
 					for (int l = 0; l < var3.domain.list.size(); l++) {
-						if (holdDomain != var1.domain.list.get(j)
-								&& var2.domain.list.get(k) != holdDomain) {
+						{
 							if (holdDomain == var3.domain.list.get(l)) {
 
 								checkIfExists = true;
@@ -1192,13 +961,12 @@ public class KenKenPuzzle {
 			int constrNumplusDomain = constrNum - var2.domain.list.get(j);
 			boolean checkIfExists = false;
 			for (int k = 0; k < var3.domain.list.size(); k++) {
-				if (var2.domain.list.get(j) != var3.domain.list.get(k)) {
+				{
 					int holdDomain = constrNumplusDomain
 							- var3.domain.list.get(k);
 
 					for (int l = 0; l < var1.domain.list.size(); l++) {
-						if (holdDomain != var3.domain.list.get(k)
-								&& holdDomain != var2.domain.list.get(j)) {
+						{
 							if (holdDomain == var1.domain.list.get(l)) {
 								checkIfExists = true;
 							}
@@ -1217,13 +985,12 @@ public class KenKenPuzzle {
 			int constrNumplusDomain = constrNum - var3.domain.list.get(j);
 			boolean checkIfExists = false;
 			for (int k = 0; k < var1.domain.list.size(); k++) {
-				if (var3.domain.list.get(j) != var1.domain.list.get(k)) {
+				{
 					int holdDomain = constrNumplusDomain
 							- var1.domain.list.get(k);
 
 					for (int l = 0; l < var2.domain.list.size(); l++) {
-						if (holdDomain != var1.domain.list.get(k)
-								&& holdDomain != var3.domain.list.get(j)) {
+						{
 							if (holdDomain == var2.domain.list.get(l)) {
 								checkIfExists = true;
 							}
@@ -1363,13 +1130,12 @@ public class KenKenPuzzle {
 					/ (double) var1.domain.list.get(j);
 			boolean checkIfExists = false;
 			for (int k = 0; k < var2.domain.list.size(); k++) {
-				if (var1.domain.list.get(j) != var2.domain.list.get(k)) {
+				{
 					double holdDomain = constrNumplusDomain
 							/ (double) var2.domain.list.get(k);
 
 					for (int l = 0; l < var3.domain.list.size(); l++) {
-						if (holdDomain != var1.domain.list.get(j)
-								&& var2.domain.list.get(k) != holdDomain) {
+						{
 							if (holdDomain == var3.domain.list.get(l)) {
 								checkIfExists = true;
 							}
@@ -1392,15 +1158,11 @@ public class KenKenPuzzle {
 					/ (double) var2.domain.list.get(j);
 			boolean checkIfExists = false;
 			for (int k = 0; k < var1.domain.list.size(); k++) {
-				if (var2.domain.list.get(j) != var1.domain.list.get(k))
-				// if(j!=k)
 				{
 					double holdDomain = constrNumplusDomain
 							/ (double) var1.domain.list.get(k);
 
 					for (int l = 0; l < var3.domain.list.size(); l++) {
-						if (var1.domain.list.get(k) != holdDomain
-								&& holdDomain != var2.domain.list.get(j))
 
 						{
 							if (holdDomain == var3.domain.list.get(l)) {
@@ -1424,13 +1186,11 @@ public class KenKenPuzzle {
 					/ (double) var3.domain.list.get(j);
 			boolean checkIfExists = false;
 			for (int k = 0; k < var1.domain.list.size(); k++) {
-				if (var3.domain.list.get(j) != var1.domain.list.get(k)) {
+				{
 					double holdDomain = constrNumplusDomain
 							/ (double) var1.domain.list.get(k);
 
 					for (int l = 0; l < var2.domain.list.size(); l++) {
-						if (var1.domain.list.get(k) != holdDomain
-								&& holdDomain != var3.domain.list.get(j))
 
 						{
 							if (holdDomain == var2.domain.list.get(l)) {
@@ -1475,23 +1235,17 @@ public class KenKenPuzzle {
 					/ (double) var1.domain.list.get(j);
 			boolean checkIfExists = false;
 			for (int k = 0; k < var2.domain.list.size(); k++) {
-				if (var1.domain.list.get(j) != var2.domain.list.get(k)) {
+				{
 					double holdDomain = constrNumplusDomain
 							/ (double) var2.domain.list.get(k);
 
 					for (int l = 0; l < var3.domain.list.size(); l++) {
-						if (var3.domain.list.get(l) != var1.domain.list.get(j)
-								&& var3.domain.list.get(l) != var2.domain.list
-										.get(k)) {
+						{
 							double holdDomain2 = holdDomain
 									/ (double) var3.domain.list.get(l);
 							{
 								for (int m = 0; m < var4.domain.list.size(); m++) {
-									if (holdDomain2 != var1.domain.list.get(j)
-											&& holdDomain2 != var2.domain.list
-													.get(k)
-											&& holdDomain2 != var3.domain.list
-													.get(l)) {
+									{
 										if (holdDomain2 == var4.domain.list
 												.get(m)) {
 											checkIfExists = true;
@@ -1518,23 +1272,17 @@ public class KenKenPuzzle {
 					/ (double) var2.domain.list.get(j);
 			boolean checkIfExists = false;
 			for (int k = 0; k < var3.domain.list.size(); k++) {
-				if (var2.domain.list.get(j) != var3.domain.list.get(k)) {
+				{
 					double holdDomain = constrNumplusDomain
 							/ (double) var3.domain.list.get(k);
 
 					for (int l = 0; l < var4.domain.list.size(); l++) {
-						if (var4.domain.list.get(l) != var2.domain.list.get(j)
-								&& var4.domain.list.get(l) != var3.domain.list
-										.get(k)) {
+						{
 							double holdDomain2 = holdDomain
 									/ (double) var4.domain.list.get(l);
 							{
 								for (int m = 0; m < var1.domain.list.size(); m++) {
-									if (holdDomain2 != var2.domain.list.get(j)
-											&& holdDomain2 != var3.domain.list
-													.get(k)
-											&& holdDomain2 != var4.domain.list
-													.get(l)) {
+									{
 										if (holdDomain2 == var1.domain.list
 												.get(m)) {
 											checkIfExists = true;
@@ -1562,23 +1310,17 @@ public class KenKenPuzzle {
 					/ (double) var3.domain.list.get(j);
 			boolean checkIfExists = false;
 			for (int k = 0; k < var4.domain.list.size(); k++) {
-				if (var3.domain.list.get(j) != var4.domain.list.get(k)) {
+				{
 					double holdDomain = constrNumplusDomain
 							/ (double) var4.domain.list.get(k);
 
 					for (int l = 0; l < var1.domain.list.size(); l++) {
-						if (var1.domain.list.get(l) != var3.domain.list.get(j)
-								&& var1.domain.list.get(l) != var4.domain.list
-										.get(k)) {
+						{
 							double holdDomain2 = holdDomain
 									/ (double) var1.domain.list.get(l);
 							{
 								for (int m = 0; m < var2.domain.list.size(); m++) {
-									if (holdDomain2 != var3.domain.list.get(j)
-											&& holdDomain2 != var4.domain.list
-													.get(k)
-											&& holdDomain2 != var1.domain.list
-													.get(l)) {
+									{
 										if (holdDomain2 == var2.domain.list
 												.get(m)) {
 											checkIfExists = true;
@@ -1606,23 +1348,17 @@ public class KenKenPuzzle {
 					/ (double) var4.domain.list.get(j);
 			boolean checkIfExists = false;
 			for (int k = 0; k < var1.domain.list.size(); k++) {
-				if (var4.domain.list.get(j) != var1.domain.list.get(k)) {
+				{
 					double holdDomain = constrNumplusDomain
 							/ (double) var1.domain.list.get(k);
 
 					for (int l = 0; l < var2.domain.list.size(); l++) {
-						if (var2.domain.list.get(l) != var4.domain.list.get(j)
-								&& var2.domain.list.get(l) != var1.domain.list
-										.get(k)) {
+						{
 							double holdDomain2 = holdDomain
 									/ (double) var2.domain.list.get(l);
 							{
 								for (int m = 0; m < var3.domain.list.size(); m++) {
-									if (holdDomain2 != var4.domain.list.get(j)
-											&& holdDomain2 != var1.domain.list
-													.get(k)
-											&& holdDomain2 != var2.domain.list
-													.get(l)) {
+									{
 										if (holdDomain2 == var3.domain.list
 												.get(m)) {
 											checkIfExists = true;
@@ -1747,9 +1483,7 @@ public class KenKenPuzzle {
 			allvars[r][c].domain.add(assign);
 			allvars[r][c].assignment = allvars[r][c].domain.list.get(0);
 			allvars[r][c].isAssigned = true;
-
 		}
-		// System.out.println(allvars[r][c].getDomain());
 	}
 
 	public void SearchSpace() {
@@ -1772,11 +1506,14 @@ public class KenKenPuzzle {
 		SearchSpace();
 
 		// Prints out the domains in the variable every time user clicks the
-
+		// solve
+		System.out.println("Current Domain is: ");
 		for (int i = 0; i < rowSize; i++) {
 			for (int j = 0; j < colSize; j++) {
 				System.out.print(allvars[i][j].domain.list + " ");
 			}
+			System.out.println();
+			System.out.println();
 			System.out.println();
 		}
 	}
@@ -1794,15 +1531,25 @@ public class KenKenPuzzle {
 	public void AssignedAndUnAssigned() {
 		unassigned = new Stack<Variable>();
 		assigned = new Stack<Variable>();
+
+		boolean isSolvable = true;
 		// Stack.push pushes the value on the top of the stack every time
-		for (int i = rowSize - 1; i >= 0; i--) {
-			for (int j = colSize - 1; j >= 0; j--) {
+		for (int i = rowSize - 1; i >= 0 && isSolvable; i--) {
+			for (int j = colSize - 1; j >= 0 && isSolvable; j--) {
 				if (allvars[i][j].domain.list.size() > 1) {
 					unassigned.push(allvars[i][j]);
 				} else {
 					assigned.push(allvars[i][j]);
-					allvars[i][j].assignment = allvars[i][j].domain.list.get(0);
-					allvars[i][j].isAssigned = true;
+					try {
+						allvars[i][j].assignment = allvars[i][j].domain.list
+								.get(0);
+						allvars[i][j].isAssigned = true;
+					} catch (Exception e) {
+						isSolvable = false;
+						JOptionPane.showMessageDialog(null,
+								"Puzzle can't be solved");
+					}
+
 				}
 			}
 		}
@@ -1831,10 +1578,9 @@ public class KenKenPuzzle {
 					if (backTrackSearch() == true) {
 						return true;
 					}
+				} else if (!valid && !assigned.isEmpty()) {
+					assigned.pop();
 				}
-				// else {
-				// assigned.pop();
-				// }
 			}
 			var.assignment = 0;
 			var.isAssigned = false;
@@ -1956,7 +1702,7 @@ public class KenKenPuzzle {
 	 * 
 	 * @return true or false
 	 */
-	public boolean isFilled() {
+	public boolean isSolvable() {
 		for (int i = 0; i < rowSize; i++) {
 			for (int j = 0; j < colSize; j++) {
 				if (allvars[i][j].domain.list.size() != 1) {

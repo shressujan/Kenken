@@ -16,20 +16,22 @@ import javax.swing.JPanel;
 
 public class KenKenDisplay extends JPanel {
 
-	private int cellSize = 50;
+	private int cellSize = 70;
 	private int divWid = 4;
-	private int start_X = 150;
-	private int start_Y = 100;
-	private int screenright = 510;
-	private int screentop = 50;
+	private int start_X = 50;
+	private int start_Y = 50;
+	private int screenright = 480;
+	private int screentop = 70;
 	private int letterOffSet_Y = 18;
 	private int letterOffSet_X = 2;
 	private int offSetMiddle_X = 18;
 	private int offSetMiddle_Y = 45;
 	private KenKenPuzzle puzzle;
+	protected int win_wid = 750;
+	protected int win_hei = 750;
 
-	Font bigFont = new Font("Arial", 1, 33);
-	Font smallFont = new Font("Arial", 1, 18);
+	Font bigFont = new Font("Arial", 1, 35);
+	Font smallFont = new Font("Arial", 1, 22);
 
 	/**
 	 * This is a constructor for this class
@@ -41,7 +43,14 @@ public class KenKenDisplay extends JPanel {
 	public void Manual() {
 		this.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent me) {
-				processClick(me);
+				if (me.getX() >= start_X
+						&& me.getX() <= start_X + (cellSize + divWid)
+								* puzzle.colSize + divWid
+						&& me.getY() >= start_Y
+						&& me.getY() <= start_Y + (cellSize + divWid)
+								* puzzle.rowSize + divWid) {
+					processClick(me);
+				}
 			}
 		});
 
@@ -56,9 +65,11 @@ public class KenKenDisplay extends JPanel {
 		puzzle.generateMove(selectedRow, selectedCol);
 		repaint();
 		puzzle.SearchSpace();
-		if (puzzle.isFilled()) {
+		if (puzzle.isSolvable()) {
 			puzzle.solve();
-			if (puzzle.isFilled()) {
+			// Checks for the correct solution and eliminates incorrect
+			// assigments for the cells
+			if (puzzle.isSolvable()) {
 				JOptionPane.showMessageDialog(null,
 						"Congratulation! You Solved the puzzle");
 			} else {
@@ -76,9 +87,10 @@ public class KenKenDisplay extends JPanel {
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		g.setColor(Color.BLACK);
+		start_X = (win_wid / 2) - (puzzle.rowSize * (cellSize + divWid) / 2);
+		start_Y = (win_hei / 2) - (puzzle.colSize * (cellSize + divWid) / 2);
 		g.fillRect(start_X, start_Y, (cellSize + divWid) * puzzle.colSize
 				+ divWid, (cellSize + divWid) * puzzle.rowSize + divWid);
-
 		for (int row = 0; row < puzzle.rowSize; row++) {
 			for (int col = 0; col < puzzle.colSize; col++) {
 				g.setColor(Color.WHITE);
@@ -162,14 +174,17 @@ public class KenKenDisplay extends JPanel {
 			for (int row = 0; row < puzzle.rowSize; row++) {
 				for (int col = 0; col < puzzle.colSize; col++) {
 					if (puzzle.allvars[row][col].domain.list.size() == 1
-							|| puzzle.allvars[row][col].isAssigned) {
+							|| (puzzle.allvars[row][col].isAssigned)) {
 						g.setColor(Color.GREEN);
 						g.setFont(bigFont);
-						g.drawString("" + puzzle.allvars[row][col].assignment,
-								start_X + divWid + (cellSize + divWid) * col
-										+ offSetMiddle_X, start_Y + divWid
-										+ (cellSize + divWid) * row
-										+ offSetMiddle_Y);
+						if (puzzle.allvars[row][col].assignment != 0) {
+							g.drawString(""
+									+ puzzle.allvars[row][col].assignment,
+									start_X + divWid + (cellSize + divWid)
+											* col + offSetMiddle_X, start_Y
+											+ divWid + (cellSize + divWid)
+											* row + offSetMiddle_Y);
+						}
 					}
 				}
 			}

@@ -1,8 +1,9 @@
 /**
  * This class extends the JFrame window
- * This class containts the main method
+ * This class contains the main method
+ * This class contains method for creating the JFrame
  * Purpose: This class will display a GUI panel where user can select desired options
- * Last Updated: March 23, 2016
+ * Last Updated: April 29, 2016
  * @author Sujan
  */
 import java.awt.event.ActionEvent;
@@ -20,8 +21,8 @@ public class KenKenWindow extends JFrame {
 	/**
 	 * These are all the variables used in this class
 	 */
-	private int win_wid = 700;
-	private int win_hei = 700;
+	protected int win_wid = 750;
+	protected int win_hei = 750;
 	private String starterFile = "KK_33.txt";
 
 	private JMenuBar mBar;
@@ -31,6 +32,7 @@ public class KenKenWindow extends JFrame {
 	private JMenu mode;
 
 	private JMenuItem loadFile;
+	private JMenuItem playAgain;
 	private JMenuItem saveFile;
 	private JMenuItem exit;
 	private JMenuItem run;
@@ -76,8 +78,22 @@ public class KenKenWindow extends JFrame {
 
 		// So that the puzzle always start with a 3*3 kenken
 
-		File file = new File(starterFile);
-		kenkenPuzzle = new KenKenPuzzle(file);
+		input = new File(starterFile);
+		kenkenPuzzle = new KenKenPuzzle(input);
+		kenkenDisplay = new KenKenDisplay(kenkenPuzzle);
+		add(kenkenDisplay);
+		repaint();
+		this.setVisible(true);
+	}
+
+	/**
+	 * This is the constructor for this class
+	 */
+	public KenKenWindow(File input) {
+		if (kenkenPuzzle != null) {
+			remove(kenkenDisplay);
+		}
+		kenkenPuzzle = new KenKenPuzzle(input);
 		kenkenDisplay = new KenKenDisplay(kenkenPuzzle);
 		add(kenkenDisplay);
 		repaint();
@@ -145,19 +161,21 @@ public class KenKenWindow extends JFrame {
 	 */
 	private JMenu buildSolveMenu() {
 		solve = new JMenu("Auto-Mode");
-
+		playAgain = new JMenuItem("Play Again");
 		backTrack = new JMenuItem("BackTrack-Solve");
 		run = new JMenuItem("CSP-Solve ");
 
 		// Hook up the menu items with the listener
 
 		MyListener listener = new MyListener();
+		playAgain.addActionListener(listener);
 		run.addActionListener(listener);
 		backTrack.addActionListener(listener);
 
 		// Adding the JMenuItem to the JMenu
 		solve.add(run);
 		solve.add(backTrack);
+		solve.add(playAgain);
 		return solve;
 	}
 
@@ -216,10 +234,21 @@ public class KenKenWindow extends JFrame {
 
 				repaint();
 				// Displays the winning message
-				if (kenkenPuzzle.isFilled()) {
+				if (kenkenPuzzle.isSolvable()) {
 					JOptionPane.showMessageDialog(null,
 							"Congratulation! You Solved the puzzle");
 				}
+			}
+			if (e.getSource() == playAgain) {
+				input = input;
+				if (kenkenPuzzle != null) {
+					remove(kenkenDisplay);
+				}
+				kenkenPuzzle = new KenKenPuzzle(input);
+				kenkenDisplay = new KenKenDisplay(kenkenPuzzle);
+				add(kenkenDisplay);
+				repaint();
+				setVisible(true);
 			}
 			// Checks if backTrack is clicked
 			if (e.getSource() == backTrack) {
@@ -227,7 +256,7 @@ public class KenKenWindow extends JFrame {
 
 				repaint();
 				// Displays the winning message
-				if (kenkenPuzzle.isFilled()) {
+				if (kenkenPuzzle.isSolvable()) {
 					JOptionPane.showMessageDialog(null,
 							"Congratulation! You Solved the puzzle");
 				}
